@@ -1,0 +1,305 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // Enable PostGIS extension
+  // Note: PostGIS extension needs to be created separately via SQL
+}
+
+// PostGIS extension for geospatial data
+// This requires manual creation: CREATE EXTENSION IF NOT EXISTS postgis;
+
+// User and Authentication
+enum UserRole {
+  PATIENT
+  CAREGIVER
+  CLINIC_STAFF
+  DISPATCHER
+  ADMIN
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  role          UserRole  @default(PATIENT)
+  firstName     String
+  lastName      String
+  phoneNumber   String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  patient       Patient?
+  clinicStaff   ClinicStaff?
+  
+  @@index([email])
+}
+
+// Patient Information
+model Patient {
+  id                String    @id @default(cuid())
+  userId            String    @unique
+  user              User      @relation(fields: [userId], references: [id])
+  
+  // Insurance Information
+  medicaidId        String?   @unique
+  medicareId        String?   @unique
+  insurancePlanId   String?
+  preAuthNumber     String?
+  
+  // Mobility Requirements
+  mobilityTier      MobilityTier @default(TIER_1)
+  requiresWheelchair Boolean   @default(false)
+  requiresCompanion Boolean   @default(false)
+  specialNeeds      String?
+  
+  // Contact Information
+  emergencyContactName  String?
+  emergencyContactPhone String?
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  bookings          Booking[]
+  
+  @@index([medicaidId])
+  @@index([medicareId])
+}
+
+enum MobilityTier {
+  TIER_1 // Autonomous
+  TIER_2 // AV + Companion
+  TIER_3 // WAV
+}
+
+// Clinic and Provider Information
+model Clinic {
+  id                String    @id @default(cuid())
+  name              String
+  npiId             String?   @unique // National Provider Identifier
+  address           String
+  city              String
+  state             String
+  zipCode           String
+  phoneNumber       String
+  email             String?
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  staff             ClinicStaff[]
+  bookings          Booking[]
+  
+  @@index([npiId])
+}
+
+model ClinicStaff {
+  id                String    @id @default(cuid())
+  userId            String    @unique
+  user              User      @relation(fields: [userId], references: [id])
+  clinicId          String
+  clinic            Clinic    @relation(fields: [clinicId], references: [id])
+  role              String    // Receptionist, Care Coordinator, etc.
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([clinicId])
+}
+
+// Vehicle Fleet Management
+enum VehicleStatus {
+  AVAILABLE
+  IN_TRANSIT
+  MAINTENANCE
+  OUT_OF_SERVICE
+}
+
+enum VehicleType {
+  AUTONOMOUS
+  COMPANION_VEHICLE
+  WAV
+}
+
+model Vehicle {
+  id                String          @id @default(cuid())
+  licensePlate      String          @unique
+  vehicleType       VehicleType
+  capacity          Int
+  status            VehicleStatus   @default(AVAILABLE)
+  currentLocation   String?         // PostGIS point
+  driverId          String?
+  
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  
+  trips             Trip[]
+  
+  @@index([status])
+  @@index([vehicleType])
+}
+
+// Booking and Trip Management
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+model Booking {
+  id                String        @id @default(cuid())
+  patientId         String
+  patient           Patient       @relation(fields: [patientId], references: [id])
+  clinicId          String?
+  clinic            Clinic?       @relation(fields: [clinicId], references: [id])
+  
+  // Trip Details
+  pickupAddress     String
+  pickupCity        String
+  pickupState       String
+  pickupZipCode     String
+  pickupLat         Float?
+  pickupLng         Float?
+  
+  dropoffAddress    String
+  dropoffCity       String
+  dropoffState      String
+  dropoffZipCode    String
+  dropoffLat        Float?
+  dropoffLng        Float?
+  
+  // Appointment Details
+  appointmentTime   DateTime
+  requestedPickupTime DateTime
+  actualPickupTime  DateTime?
+  actualDropoffTime DateTime?
+  
+  // Requirements
+  mobilityTier      MobilityTier
+  requiresWheelchair Boolean     @default(false)
+  requiresCompanion Boolean     @default(false)
+  
+  // Status
+  status            BookingStatus @default(PENDING)
+  notes             String?
+  
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  
+  trip              Trip?
+  billingClaim      BillingClaim?
+  
+  @@index([patientId])
+  @@index([clinicId])
+  @@index([status])
+  @@index([appointmentTime])
+}
+
+model Trip {
+  id                String        @id @default(cuid())
+  bookingId         String        @unique
+  booking           Booking       @relation(fields: [bookingId], references: [id])
+  vehicleId         String
+  vehicle           Vehicle       @relation(fields: [vehicleId], references: [id])
+  
+  // GPS Tracking
+  route             String?       // GeoJSON
+  distanceMiles     Float?
+  durationMinutes   Int?
+  
+  // Timing
+  driverArrivalTime DateTime?
+  pickupTime        DateTime?
+  dropoffTime       DateTime?
+  
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  
+  @@index([vehicleId])
+  @@index([bookingId])
+}
+
+// Billing and Claims
+enum ClaimStatus {
+  DRAFT
+  SUBMITTED
+  APPROVED
+  DENIED
+  PAID
+  UNDER_REVIEW
+}
+
+model BillingClaim {
+  id                String        @id @default(cuid())
+  bookingId         String        @unique
+  booking           Booking       @relation(fields: [bookingId], references: [id])
+  
+  // Claim Details
+  claimNumber       String        @unique
+  payerId           String?       // Insurance payer ID
+  payerName         String?
+  
+  // HCPCS Codes
+  hcpcsCode         String        // A0100, A0130, T2003, S0215
+  hcpcsDescription  String?
+  
+  // Financials
+  billedAmount      Float
+  allowedAmount     Float?
+  paidAmount        Float?
+  
+  // Status
+  status            ClaimStatus   @default(DRAFT)
+  submittedDate     DateTime?
+  processedDate     DateTime?
+  denialReason      String?
+  
+  // Supporting Documentation
+  evvData           String?       // Electronic Visit Verification GPS data
+  attachments       String[]      // Array of file URLs
+  
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  
+  @@index([claimNumber])
+  @@index([status])
+  @@index([payerId])
+}
+
+// Lead Capture for Partnerships
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  PROPOSAL_SENT
+  NEGOTIATING
+  WON
+  LOST
+}
+
+model PartnerLead {
+  id                String        @id @default(cuid())
+  organizationName  String
+  contactName       String
+  contactEmail      String
+  contactPhone      String
+  organizationType  String        // Medicaid Plan, Hospital, Clinic, etc.
+  estimatedVolume   Int?          // Estimated monthly rides
+  notes             String?
+  status            LeadStatus    @default(NEW)
+  
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  
+  @@index([status])
+  @@index([organizationType])
+}

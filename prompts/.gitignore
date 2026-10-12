@@ -1,0 +1,3 @@
+# Exclude runtime logs from version control
+logs/
+*.log
