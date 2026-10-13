@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   description: 'Reliable, compliant, and accessible medical transportation services for Medicaid, Medicare Advantage, and healthcare providers.',
   keywords: ['NEMT', 'medical transportation', 'Medicaid', 'Medicare Advantage', 'wheelchair accessible', 'healthcare logistics'],
   authors: [{ name: 'NEMT Platform' }],
+  icons: {
+    icon: '/icon.svg',
+    apple: '/apple-icon.png',
+  },
 }
 
 export const viewport: Viewport = {
@@ -16,8 +20,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+    { media: '(prefers-color-scheme: light)', color: '#dc2626' },
+    { media: '(prefers-color-scheme: dark)', color: '#dc2626' },
   ],
 }
 
@@ -29,8 +33,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         {children}

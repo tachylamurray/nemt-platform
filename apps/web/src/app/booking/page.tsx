@@ -199,6 +199,11 @@ export default function BookingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary/10 to-background">
+      {/* Demo Mode Badge */}
+      <div className="bg-amber-100 border-b border-amber-200 text-amber-800 text-center py-2 text-sm font-medium">
+        ⚠️ Demo Mode - This is a prototype demonstrating the booking system. Full functionality coming soon.
+      </div>
+
       {/* Navigation */}
       <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" role="navigation" aria-label="Main navigation">
         <div className="container mx-auto px-4 py-4">

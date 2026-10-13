@@ -27,14 +27,28 @@ export default function DemoRequestPage() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    try {
+      // Submit to Formspree
+      const response = await fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
 
-    // Here you would make an actual API call to save the lead
-    console.log('Lead submitted:', formData)
-
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+      if (response.ok) {
+        setIsSubmitted(true)
+      } else {
+        console.error('Form submission failed')
+        alert('There was an error submitting the form. Please try again.')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      alert('There was an error submitting the form. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
