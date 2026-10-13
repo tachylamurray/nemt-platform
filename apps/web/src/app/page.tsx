@@ -1,19 +1,18 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { 
-  ShieldCheck, 
-  Clock, 
-  Users, 
-  Navigation, 
-  FileText, 
+import {
+  ShieldCheck,
+  Clock,
+  Users,
+  Navigation,
+  FileText,
   Phone,
   Accessibility,
   Truck,
   Building2,
   Star,
   CheckCircle,
-  Heart,
   Stethoscope,
   Car
 } from 'lucide-react'
@@ -386,7 +385,7 @@ export default function LandingPage() {
               <CardHeader>
                 <div className="flex items-center mb-4">
                   <div className="flex text-yellow-400">
-                    {[...Array(5)].map((_, i) => (
+                    {Array.from({ length: 5 }).map((_, i) => (
                       <Star key={i} className="h-5 w-5 fill-current" aria-hidden="true" />
                     ))}
                   </div>
@@ -411,7 +410,7 @@ export default function LandingPage() {
               <CardHeader>
                 <div className="flex items-center mb-4">
                   <div className="flex text-yellow-400">
-                    {[...Array(5)].map((_, i) => (
+                    {Array.from({ length: 5 }).map((_, i) => (
                       <Star key={i} className="h-5 w-5 fill-current" aria-hidden="true" />
                     ))}
                   </div>
@@ -436,7 +435,7 @@ export default function LandingPage() {
               <CardHeader>
                 <div className="flex items-center mb-4">
                   <div className="flex text-yellow-400">
-                    {[...Array(5)].map((_, i) => (
+                    {Array.from({ length: 5 }).map((_, i) => (
                       <Star key={i} className="h-5 w-5 fill-current" aria-hidden="true" />
                     ))}
                   </div>

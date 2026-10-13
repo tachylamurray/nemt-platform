@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowLeft, Calendar, MapPin, Clock, Accessibility, User, Phone, CheckCircle, AlertCircle } from 'lucide-react'
+import { ArrowLeft, Calendar, MapPin, Accessibility, User, Phone, CheckCircle, AlertCircle } from 'lucide-react'
 
 export default function BookingPage() {
   const [step, setStep] = useState(1)
@@ -133,21 +133,20 @@ export default function BookingPage() {
     }
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!validateStep4()) return
-    
+
     setIsSubmitting(true)
 
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    void new Promise(resolve => setTimeout(resolve, 2000)).then(() => {
+      // Here you would make an actual API call to create the booking
 
-    // Here you would make an actual API call to create the booking
-    console.log('Booking submitted:', formData)
-
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+    })
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -225,7 +224,7 @@ export default function BookingPage() {
       {/* Progress Indicator */}
       <div className="container mx-auto px-4 py-6">
         <div className="max-w-3xl mx-auto">
-          <div className="flex items-center justify-between mb-2" role="progressbar" aria-valuenow={step} aria-valuemin="1" aria-valuemax="4" aria-label="Booking progress">
+          <div className="flex items-center justify-between mb-2" role="progressbar" aria-valuenow={step} aria-valuemin={1} aria-valuemax={4} aria-label="Booking progress">
             {[1, 2, 3, 4].map((stepNumber) => (
               <div key={stepNumber} className="flex items-center">
                 <div

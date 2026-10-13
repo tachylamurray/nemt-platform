@@ -6,20 +6,18 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { 
-  ArrowLeft, 
-  Building2, 
-  Calendar, 
-  Clock, 
-  MapPin, 
-  Users, 
+import {
+  ArrowLeft,
+  Building2,
+  Calendar,
+  Clock,
+  MapPin,
+  Users,
   Plus,
   Search,
   Filter,
   CheckCircle,
-  AlertCircle,
   Phone,
-  Mail,
   Navigation
 } from 'lucide-react'
 
