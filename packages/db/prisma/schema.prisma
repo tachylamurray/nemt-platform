@@ -54,7 +54,7 @@ model Patient {
   preAuthNumber     String?
   
   // Mobility Requirements
-  mobilityTier      MobilityTier @default(TIER_1)
+  mobilityTier      MobilityTier @default(TIER_3)
   requiresWheelchair Boolean   @default(false)
   requiresCompanion Boolean   @default(false)
   specialNeeds      String?
@@ -73,9 +73,9 @@ model Patient {
 }
 
 enum MobilityTier {
-  TIER_1 // Autonomous
-  TIER_2 // AV + Companion
-  TIER_3 // WAV
+  TIER_1 // Autonomous (Coming Soon)
+  TIER_2 // AV + Companion (Coming Soon)
+  TIER_3 // WAV (Available - Tier 1 in UI)
 }
 
 // Clinic and Provider Information

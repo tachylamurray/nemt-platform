@@ -170,7 +170,7 @@ export default function LandingPage() {
                 </div>
                 <CardTitle className="text-xl">3-Tier Mobility Options</CardTitle>
                 <CardDescription className="text-base">
-                  From autonomous vehicles to wheelchair-accessible vans, matching every patient's needs
+                  Starting with wheelchair-accessible vehicles, with autonomous options coming soon
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -237,12 +237,43 @@ export default function LandingPage() {
             Choose the right level of assistance for your specific requirements
           </p>
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-2 hover:border-red-300 transition-colors">
+            <Card className="border-2 border-red-600 relative">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                Available Now
+              </div>
+              <CardHeader>
+                <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                  <Accessibility className="h-6 w-6 text-purple-600" aria-hidden="true" />
+                </div>
+                <CardTitle className="text-2xl">Tier 1: WAV</CardTitle>
+                <CardDescription className="text-base">Wheelchair accessible vehicle</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className="flex items-start">
+                    <Accessibility className="h-5 w-5 mr-2 mt-0.5 text-purple-600" aria-hidden="true" />
+                    <span>Full wheelchair accessibility</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Users className="h-5 w-5 mr-2 mt-0.5 text-purple-600" aria-hidden="true" />
+                    <span>Professional driver</span>
+                  </li>
+                  <li className="flex items-start">
+                    <FileText className="h-5 w-5 mr-2 mt-0.5 text-purple-600" aria-hidden="true" />
+                    <span>HCPCS Code: A0130</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+            <Card className="border-2 hover:border-red-300 transition-colors opacity-75">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-400 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                Coming Soon
+              </div>
               <CardHeader>
                 <div className="bg-red-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                   <Truck className="h-6 w-6 text-red-600" aria-hidden="true" />
                 </div>
-                <CardTitle className="text-2xl">Tier 1: Autonomous</CardTitle>
+                <CardTitle className="text-2xl">Tier 2: Autonomous</CardTitle>
                 <CardDescription className="text-base">Standard curb-to-curb service</CardDescription>
               </CardHeader>
               <CardContent>
@@ -262,15 +293,15 @@ export default function LandingPage() {
                 </ul>
               </CardContent>
             </Card>
-            <Card className="border-2 border-red-600 relative">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                Most Popular
+            <Card className="border-2 hover:border-red-300 transition-colors opacity-75">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-400 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                Coming Soon
               </div>
               <CardHeader>
                 <div className="bg-red-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                   <Users className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
-                <CardTitle className="text-2xl">Tier 2: Companion</CardTitle>
+                <CardTitle className="text-2xl">Tier 3: Companion</CardTitle>
                 <CardDescription className="text-base">AV with trained companion</CardDescription>
               </CardHeader>
               <CardContent>
@@ -286,31 +317,6 @@ export default function LandingPage() {
                   <li className="flex items-start">
                     <Phone className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
                     <span>Real-time support</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-            <Card className="border-2 hover:border-purple-300 transition-colors">
-              <CardHeader>
-                <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                  <Accessibility className="h-6 w-6 text-purple-600" aria-hidden="true" />
-                </div>
-                <CardTitle className="text-2xl">Tier 3: WAV</CardTitle>
-                <CardDescription className="text-base">Wheelchair accessible vehicle</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <Accessibility className="h-5 w-5 mr-2 mt-0.5 text-purple-600" aria-hidden="true" />
-                    <span>Full wheelchair accessibility</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Users className="h-5 w-5 mr-2 mt-0.5 text-purple-600" aria-hidden="true" />
-                    <span>Professional driver</span>
-                  </li>
-                  <li className="flex items-start">
-                    <FileText className="h-5 w-5 mr-2 mt-0.5 text-purple-600" aria-hidden="true" />
-                    <span>HCPCS Code: A0130</span>
                   </li>
                 </ul>
               </CardContent>

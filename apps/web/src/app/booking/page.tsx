@@ -43,7 +43,7 @@ export default function BookingPage() {
     appointmentType: '',
     
     // Mobility Requirements
-    mobilityTier: 'TIER_1',
+    mobilityTier: 'TIER_3',
     requiresWheelchair: false,
     requiresCompanion: false,
     specialNeeds: '',
@@ -721,13 +721,13 @@ export default function BookingPage() {
                           onChange={handleChange}
                           className="flex h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-lg ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                         >
-                          <option value="TIER_1">Tier 1: Autonomous Vehicle (Standard)</option>
-                          <option value="TIER_2">Tier 2: Autonomous + Companion</option>
-                          <option value="TIER_3">Tier 3: Wheelchair Accessible Vehicle</option>
+                          <option value="TIER_1" disabled>Tier 1: Autonomous Vehicle (Standard) - Coming Soon</option>
+                          <option value="TIER_2" disabled>Tier 2: Autonomous + Companion - Coming Soon</option>
+                          <option value="TIER_3">Tier 1: Wheelchair Accessible Vehicle</option>
                         </select>
                         <p className="text-sm text-muted-foreground">
-                          {formData.mobilityTier === 'TIER_1' && 'Self-driving vehicle for ambulatory patients'}
-                          {formData.mobilityTier === 'TIER_2' && 'Autonomous vehicle with trained medical companion'}
+                          {formData.mobilityTier === 'TIER_1' && 'Self-driving vehicle for ambulatory patients - Coming Soon'}
+                          {formData.mobilityTier === 'TIER_2' && 'Autonomous vehicle with trained medical companion - Coming Soon'}
                           {formData.mobilityTier === 'TIER_3' && 'Wheelchair accessible vehicle with professional driver'}
                         </p>
                       </div>
@@ -847,7 +847,7 @@ export default function BookingPage() {
                         <p><strong>Appointment:</strong> {formData.appointmentDate} at {formData.appointmentTime}</p>
                         <p><strong>From:</strong> {formData.pickupAddress}, {formData.pickupCity}, {formData.pickupState}</p>
                         <p><strong>To:</strong> {formData.dropoffAddress}, {formData.dropoffCity}, {formData.dropoffState}</p>
-                        <p><strong>Service:</strong> {formData.mobilityTier === 'TIER_1' ? 'Autonomous Vehicle' : formData.mobilityTier === 'TIER_2' ? 'Autonomous + Companion' : 'Wheelchair Accessible'}</p>
+                        <p><strong>Service:</strong> {formData.mobilityTier === 'TIER_3' ? 'Wheelchair Accessible Vehicle' : formData.mobilityTier === 'TIER_1' ? 'Autonomous Vehicle (Coming Soon)' : 'Autonomous + Companion (Coming Soon)'}</p>
                       </div>
                     </div>
                   </div>
