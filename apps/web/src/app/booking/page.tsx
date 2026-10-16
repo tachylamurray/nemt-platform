@@ -13,6 +13,7 @@ export default function BookingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [submitError, setSubmitError] = useState<string | null>(null)
   
   const [formData, setFormData] = useState({
     // Patient Information
@@ -104,7 +105,7 @@ export default function BookingPage() {
 
   const handleNext = () => {
     let isValid = false
-    
+
     switch (step) {
       case 1:
         isValid = validateStep1()
@@ -119,10 +120,11 @@ export default function BookingPage() {
         isValid = validateStep4()
         break
     }
-    
+
     if (isValid && step < 4) {
       setStep(step + 1)
       setErrors({})
+      setSubmitError(null)
     }
   }
 
@@ -130,6 +132,7 @@ export default function BookingPage() {
     if (step > 1) {
       setStep(step - 1)
       setErrors({})
+      setSubmitError(null)
     }
   }
 
@@ -139,13 +142,22 @@ export default function BookingPage() {
     if (!validateStep4()) return
 
     setIsSubmitting(true)
+    setSubmitError(null)
 
     // Simulate API call
-    void new Promise(resolve => setTimeout(resolve, 2000)).then(() => {
-      // Here you would make an actual API call to create the booking
-
+    void new Promise((resolve, _reject) => {
+      setTimeout(() => {
+        // Here you would make an actual API call to create the booking
+        // For demo purposes, we simulate success
+        resolve(true)
+      }, 2000)
+    }).then(() => {
       setIsSubmitting(false)
       setIsSubmitted(true)
+    }).catch((error) => {
+      setIsSubmitting(false)
+      setSubmitError('There was an error submitting your booking request. Please try again.')
+      console.error('Booking submission error:', error)
     })
   }
 
@@ -172,19 +184,12 @@ export default function BookingPage() {
         <Card className="max-w-lg w-full">
           <CardHeader className="text-center">
             <CheckCircle className="h-20 w-20 text-green-500 mx-auto mb-4" aria-hidden="true" />
-            <CardTitle className="text-3xl">Booking Confirmed!</CardTitle>
+            <CardTitle className="text-3xl">Booking request received</CardTitle>
             <CardDescription className="text-lg">
-              Your ride has been scheduled. You will receive a confirmation call shortly.
+              We received your booking request; you'll receive a scheduling call shortly.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="bg-muted p-4 rounded-lg">
-              <p className="font-semibold">Booking Details:</p>
-              <p className="text-lg">Date: {formData.appointmentDate}</p>
-              <p className="text-lg">Time: {formData.appointmentTime}</p>
-              <p className="text-lg">From: {formData.pickupAddress}</p>
-              <p className="text-lg">To: {formData.dropoffAddress}</p>
-            </div>
             <Link href="/">
               <Button size="lg" className="w-full text-lg py-6">
                 Return to Home
@@ -872,15 +877,23 @@ export default function BookingPage() {
                       Next
                     </Button>
                   ) : (
-                    <Button
-                      type="submit"
-                      size="lg"
-                      disabled={isSubmitting}
-                      className="flex-1 text-lg py-6"
-                      aria-live="polite"
-                    >
-                      {isSubmitting ? 'Submitting...' : 'Confirm Booking'}
-                    </Button>
+                    <>
+                      <Button
+                        type="submit"
+                        size="lg"
+                        disabled={isSubmitting}
+                        className="flex-1 text-lg py-6"
+                        aria-live="polite"
+                      >
+                        {isSubmitting ? 'Submitting...' : 'Submit Booking Request'}
+                      </Button>
+                      {submitError && (
+                        <p className="text-red-500 text-sm flex items-center mt-2" role="alert">
+                          <AlertCircle className="h-4 w-4 mr-1" aria-hidden="true" />
+                          {submitError}
+                        </p>
+                      )}
+                    </>
                   )}
                 </div>
 
