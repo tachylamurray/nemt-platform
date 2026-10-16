@@ -265,55 +265,65 @@ export default function LandingPage() {
                 </ul>
               </CardContent>
             </Card>
-            <Card className="border-2 hover:border-red-300 transition-colors opacity-75">
-              <CardHeader>
-                <div className="bg-red-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                  <Truck className="h-6 w-6 text-red-600" aria-hidden="true" />
-                </div>
-                <CardTitle className="text-2xl">Tier 2: Autonomous</CardTitle>
-                <CardDescription className="text-base">Standard curb-to-curb service</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
-                    <span>Self-driving vehicles</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Clock className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
-                    <span>24/7 availability</span>
-                  </li>
-                  <li className="flex items-start">
-                    <FileText className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
-                    <span>HCPCS Code: A0100</span>
-                  </li>
-                </ul>
-              </CardContent>
+            <Card className="border-2 hover:border-red-300 transition-colors opacity-75 relative overflow-hidden">
+              <div className="blur-sm">
+                <CardHeader>
+                  <div className="bg-red-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                    <Truck className="h-6 w-6 text-red-600" aria-hidden="true" />
+                  </div>
+                  <CardTitle className="text-2xl">Tier 2: Autonomous</CardTitle>
+                  <CardDescription className="text-base">Standard curb-to-curb service</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
+                      <span>Self-driving vehicles</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Clock className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
+                      <span>24/7 availability</span>
+                    </li>
+                    <li className="flex items-start">
+                      <FileText className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
+                      <span>HCPCS Code: A0100</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center bg-white/30 backdrop-blur-sm">
+                <span className="text-4xl font-bold text-gray-800">Coming Soon</span>
+              </div>
             </Card>
-            <Card className="border-2 hover:border-red-300 transition-colors opacity-75">
-              <CardHeader>
-                <div className="bg-red-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                  <Users className="h-6 w-6 text-white" aria-hidden="true" />
-                </div>
-                <CardTitle className="text-2xl">Tier 3: Companion</CardTitle>
-                <CardDescription className="text-base">AV with trained companion</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <Users className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
-                    <span>Trained medical companion</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Accessibility className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
-                    <span>Assistance with boarding</span>
-                  </li>
-                  <li className="flex items-start">
-                    <Phone className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
-                    <span>Real-time support</span>
-                  </li>
-                </ul>
-              </CardContent>
+            <Card className="border-2 hover:border-red-300 transition-colors opacity-75 relative overflow-hidden">
+              <div className="blur-sm">
+                <CardHeader>
+                  <div className="bg-red-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                    <Users className="h-6 w-6 text-white" aria-hidden="true" />
+                  </div>
+                  <CardTitle className="text-2xl">Tier 3: Companion</CardTitle>
+                  <CardDescription className="text-base">AV with trained companion</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <Users className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
+                      <span>Trained medical companion</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Accessibility className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
+                      <span>Assistance with boarding</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Phone className="h-5 w-5 mr-2 mt-0.5 text-red-600" aria-hidden="true" />
+                      <span>Real-time support</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center bg-white/30 backdrop-blur-sm">
+                <span className="text-4xl font-bold text-gray-800">Coming Soon</span>
+              </div>
             </Card>
           </div>
         </div>
