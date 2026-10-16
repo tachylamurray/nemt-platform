@@ -266,9 +266,6 @@ export default function LandingPage() {
               </CardContent>
             </Card>
             <Card className="border-2 hover:border-red-300 transition-colors opacity-75">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-400 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                Coming Soon
-              </div>
               <CardHeader>
                 <div className="bg-red-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                   <Truck className="h-6 w-6 text-red-600" aria-hidden="true" />
@@ -294,9 +291,6 @@ export default function LandingPage() {
               </CardContent>
             </Card>
             <Card className="border-2 hover:border-red-300 transition-colors opacity-75">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-400 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                Coming Soon
-              </div>
               <CardHeader>
                 <div className="bg-red-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                   <Users className="h-6 w-6 text-white" aria-hidden="true" />
